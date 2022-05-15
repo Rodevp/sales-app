@@ -24,7 +24,7 @@ export const validateDataService = ( data: User ) => {
 }
 
 
-export const saveUserService = (user: User) => {
+export const saveUserService = async (user: User) => {
 
     const repository = new ReposotoryUser()
     let response;
@@ -32,10 +32,13 @@ export const saveUserService = (user: User) => {
     if ( !validateUUID(user.id) ) throw new UuidError('id no valido')
 
     try {
-        response = repository.save(user)
+        response = await repository.save(user)
+        console.log(response)
     } catch (error) {
         console.error('error del repository')
         throw new RepositoryError('No se ha podido guardar')
     }
+
+    return response
 
 }
