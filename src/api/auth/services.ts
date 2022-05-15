@@ -38,6 +38,10 @@ export const saveUserService = async (user: User) => {
     if (typeof user.password !== 'string' || user.password.length < 6 ) 
             throw new DataIsNotValidError('contraseña no valida')
 
+    const userIsExists: any = repository.getByEmail(user.email)
+
+    if (userIsExists) throw new BadRequestsError('El usuario ya existe')
+
     const userParser = {
         ...user,
         password: await generateHash(user.password)

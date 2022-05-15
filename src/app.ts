@@ -30,11 +30,15 @@ app.get('/', (_req: Request, res: Response) => {
     res.send('<h1>Api on fire</>')
 })
 
+
 app.use('/api/v1/auth', authRouter)
 
-
 //error handler
-app.use(errorHandleMiddleware)
+app.use((err: any, req: any, res: any, next: any) => {
+    console.log(err)
+    return res.status(500).send('error')
+})
+
 
 const start = async () => {
 
