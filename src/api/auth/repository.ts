@@ -3,7 +3,7 @@ import { UserDTO } from '../../DTO/user'
 import {Users as UserModel} from './model'
 import { RepositoryError } from '../../errors/repository-error'
 
-export class ReposotoryUser {
+export class RepositoryUser {
 
     constructor () { }
 
