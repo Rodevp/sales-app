@@ -15,7 +15,6 @@ import productRouter from './routes/product'
 import './api/auth/model'
 import './api/product/model'
 import './api/sales/model'
-import './api/seller/model'
 
 
 //app
