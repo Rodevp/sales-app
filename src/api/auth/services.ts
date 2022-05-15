@@ -1,25 +1,35 @@
 import { User } from './types'
+import { ReposotoryUser } from './repository'
+import { test as validateUUID } from 'uuid-random'
+
+//errors
 import {  DataIsNotValidError } from '../../errors/data-error'
 import { RepositoryError } from '../../errors/repository-error'
-import { ReposotoryUser } from './repository'
+import { UuidError } from '../../errors/uuid-error'
+import { isTypeUser } from './utils'
 
-export const validateData = ( data: User ) => {
+export const validateDataService = ( data: User ) => {
     
     let values = Object.values(data)
     let isValidValues = values.every( value => value.length > 0 )
     let everyValuesStrings = values.every( value => typeof value === 'string' )
 
+    isTypeUser(data)
+
     if (!everyValuesStrings) throw new DataIsNotValidError('Valores no validos')
 
     if (!isValidValues) throw new DataIsNotValidError('No puede haber campos vacios')
+
 
 }
 
 
 export const saveUserService = (user: User) => {
-    console.log('ejecutandome')
+
     const repository = new ReposotoryUser()
     let response;
+
+    if ( !validateUUID(user.id) ) throw new UuidError('id no valido')
 
     try {
         response = repository.save(user)
