@@ -9,6 +9,7 @@ import { errorHandleMiddleware } from './middlewares/handle-error'
 //routes import
 import authRouter from './routes/auth'
 import productRouter from './routes/product'
+import salesRouter from './routes/sales'
 
 
 //models synchronization
@@ -34,6 +35,7 @@ app.get('/', (_req: Request, res: Response) => {
 //routers
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/product', productRouter)
+app.use('/api/v1/sales', salesRouter)
 
 
 //error handler
@@ -47,7 +49,7 @@ const start = async () => {
 
     try {
 
-        await sequelize.sync( { force: true } )
+        await sequelize.sync( { force: false } )
 
         app.listen(PORT, () => {
             console.log('server on port', PORT, 'and db run')

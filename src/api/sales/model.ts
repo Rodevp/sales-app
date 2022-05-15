@@ -12,7 +12,7 @@ export const Sales = sequelize.define('sales', {
         type: DataTypes.STRING(80)
     },
     id_seller: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
     },
     value_sale: {
         type: DataTypes.INTEGER
