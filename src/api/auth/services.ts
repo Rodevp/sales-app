@@ -7,6 +7,7 @@ import {  DataIsNotValidError } from '../../errors/data-error'
 import { RepositoryError } from '../../errors/repository-error'
 import { UuidError } from '../../errors/uuid-error'
 import { isTypeUser } from './utils'
+import { generateHash } from '../../helpers/encrypt'
 
 export const validateDataService = ( data: User ) => {
     
@@ -31,8 +32,16 @@ export const saveUserService = async (user: User) => {
 
     if ( !validateUUID(user.id) ) throw new UuidError('id no valido')
 
+    if (typeof user.password !== 'string' || user.password.length < 6 ) 
+            throw new DataIsNotValidError('contraseña no valida')
+
+    let userParser = {
+        ...user,
+        password: await generateHash(user.password)
+    }
+
     try {
-        response = await repository.save(user)
+        response = await repository.save(userParser)
         console.log(response)
     } catch (error) {
         console.error('error del repository')
