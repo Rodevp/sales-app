@@ -35,14 +35,13 @@ export const saveUserService = async (user: User) => {
     if (typeof user.password !== 'string' || user.password.length < 6 ) 
             throw new DataIsNotValidError('contraseña no valida')
 
-    let userParser = {
+    const userParser = {
         ...user,
         password: await generateHash(user.password)
     }
 
     try {
         response = await repository.save(userParser)
-        console.log(response)
     } catch (error) {
         console.error('error del repository')
         throw new RepositoryError('No se ha podido guardar')
