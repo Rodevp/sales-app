@@ -4,6 +4,11 @@ import helmet from 'helmet'
 import cors from 'cors'
 import sequelize from './database'
 import morgan from 'morgan'
+import { errorHandleMiddleware } from './middlewares/handle-error'
+
+//routes import
+import authRouter from './routes/auth'
+
 
 //models synchronization
 import './api/auth/model'
@@ -24,6 +29,14 @@ app.use( morgan('dev') )
 app.get('/', (_req: Request, res: Response) => {
     res.send('<h1>Api on fire</>')
 })
+
+app.use('/api/v1/auth', authRouter)
+
+
+
+
+//error handler
+app.use(errorHandleMiddleware)
 
 const start = async () => {
 

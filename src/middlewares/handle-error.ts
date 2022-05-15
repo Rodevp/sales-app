@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 
 //TODO: buscar el tipo de error:
 
-export const ErrorHandleMiddleware = (
+export const errorHandleMiddleware = (
     err: any,
     _req: Request,
     res: Response,

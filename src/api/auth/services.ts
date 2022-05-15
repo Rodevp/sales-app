@@ -3,7 +3,7 @@ import {  DataIsNotValidError } from '../../errors/data-error'
 import { RepositoryError } from '../../errors/repository-error'
 import { ReposotoryUser } from './repository'
 
-const validateData = ( data: User ) => {
+export const validateData = ( data: User ) => {
     
     let values = Object.values(data)
     let isValidValues = values.every( value => value.length > 0 )
@@ -16,8 +16,8 @@ const validateData = ( data: User ) => {
 }
 
 
-const saveUserService = (user: User) => {
-
+export const saveUserService = (user: User) => {
+    console.log('ejecutandome')
     const repository = new ReposotoryUser()
     let response;
 
@@ -28,10 +28,4 @@ const saveUserService = (user: User) => {
         throw new RepositoryError('No se ha podido guardar')
     }
 
-}
-
-
-export default {
-    validateData,
-    saveUserService
 }

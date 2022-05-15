@@ -6,7 +6,7 @@ export class ReposotoryUser {
 
 
     save(user: User) {
-
+        console.log(user)
     }
 
 }
