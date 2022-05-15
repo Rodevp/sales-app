@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { saveUserService, validateDataService } from '../api/auth/services'
+import { saveUserService, validateDataService, loginService } from '../api/auth/services'
 
 const register = async (req: Request, res: Response) => {
     
@@ -13,6 +13,18 @@ const register = async (req: Request, res: Response) => {
 }
 
 
+const login = async (req: Request, res: Response) => {
+    
+    let user = req.body
+
+    const response = await loginService(user)
+
+    return res.status(200).json(response)
+
+}
+
+
 export default {
-    register
+    register,
+    login
 }

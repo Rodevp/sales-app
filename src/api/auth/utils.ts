@@ -4,7 +4,7 @@ import { DataIsNotValidError } from '../../errors/data-error'
 export const isTypeUser = (data: User) => {
     
     let keysObjectUser =  Object.keys(data)
-    let keys = ['id', 'name', 'role', 'password']
+    let keys = ['id', 'email', 'name', 'role', 'password']
 
     if (keysObjectUser.length === keys.length) {
         

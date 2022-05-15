@@ -1,13 +1,16 @@
-import { User } from './types'
-import { ReposotoryUser } from './repository'
+import { User, UserLogin } from './types'
+import { RepositoryUser } from './repository'
 import { test as validateUUID } from 'uuid-random'
+import { generateHash, comparePassword } from '../../helpers/encrypt'
+import { isTypeUser } from './utils'
+import { createJWT } from '../../helpers/token'
 
 //errors
 import {  DataIsNotValidError } from '../../errors/data-error'
 import { RepositoryError } from '../../errors/repository-error'
 import { UuidError } from '../../errors/uuid-error'
-import { isTypeUser } from './utils'
-import { generateHash } from '../../helpers/encrypt'
+import { BadRequestsError } from '../../errors/bad-requests'
+import { UnauthenticatedError } from '../../errors/auth-error'
 
 export const validateDataService = ( data: User ) => {
     
@@ -27,7 +30,7 @@ export const validateDataService = ( data: User ) => {
 
 export const saveUserService = async (user: User) => {
 
-    const repository = new ReposotoryUser()
+    const repository = new RepositoryUser()
     let response;
 
     if ( !validateUUID(user.id) ) throw new UuidError('id no valido')
@@ -48,5 +51,39 @@ export const saveUserService = async (user: User) => {
     }
 
     return response
+
+}
+
+
+export const loginService = async (user: UserLogin) => {
+    
+    const { email, password } = user
+    const repository = new RepositoryUser()
+  
+    if (!email || !password) {
+      throw new BadRequestsError('Contraseña o email no validos')
+    }
+
+    const response: any = await repository.getByEmail(email)
+
+    if (!user) {
+      throw new UnauthenticatedError('usuario no encontrado')
+    }
+
+    const isPasswordCorrect = await comparePassword(password, response.password)
+
+    if (!isPasswordCorrect) {
+      throw new UnauthenticatedError('Credenciales no validas')
+    }
+
+    const userResponse = {
+        id: response.id,
+        email: response.email
+    }
+
+    return {
+        user: userResponse,
+        token: createJWT(user)
+    }
 
 }

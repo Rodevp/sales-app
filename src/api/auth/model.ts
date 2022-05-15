@@ -9,6 +9,9 @@ export const Users = sequelize.define('users', {
     name: {
         type: DataTypes.STRING(50)
     },
+    email: {
+        type: DataTypes.STRING(100),
+    },
     role: {
         type: DataTypes.ENUM('admin', 'seller')
     },

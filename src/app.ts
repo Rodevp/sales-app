@@ -33,8 +33,6 @@ app.get('/', (_req: Request, res: Response) => {
 app.use('/api/v1/auth', authRouter)
 
 
-
-
 //error handler
 app.use(errorHandleMiddleware)
 

@@ -1,9 +1,7 @@
 import jwt from 'jsonwebtoken'
 import { Response, Request, NextFunction } from 'express'
 import { UnauthenticatedError } from '../errors/auth-error'
-import dotenv from 'dotenv'
-
-dotenv.config()
+import token_config from '../config/auth'
 
 export const authenticationMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     
@@ -14,10 +12,10 @@ export const authenticationMiddleware = async (req: Request, res: Response, next
     }
 
     const token = authHeader.split(' ')[1]
-    const shhh = process.env.JWT_SECRET
+    const shhh = token_config.JWT_SECRET
 
     try {
-        const decoded = jwt.verify(token, shhh)
+        const decoded: any = jwt.verify(token, 'a')
         const { id, username } = decoded
         req.body = { id, username, ...req.body }
         next()
