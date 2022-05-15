@@ -32,15 +32,16 @@ export const saveUserService = async (user: User) => {
 
     const repository = new RepositoryUser()
     let response;
+    console.log(user)
 
     if ( !validateUUID(user.id) ) throw new UuidError('id no valido')
 
     if (typeof user.password !== 'string' || user.password.length < 6 ) 
             throw new DataIsNotValidError('contraseña no valida')
 
-    const userIsExists: any = repository.getByEmail(user.email)
+    //const userIsExists: any = repository.getByEmail(user.email)
 
-    if (userIsExists) throw new BadRequestsError('El usuario ya existe')
+    //if (userIsExists) throw new BadRequestsError('El usuario ya existe')
 
     const userParser = {
         ...user,

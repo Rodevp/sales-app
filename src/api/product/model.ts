@@ -15,6 +15,9 @@ export const Products = sequelize.define('products', {
     },
     id_sale: {
         type: DataTypes.INTEGER
+    },
+    id_seller: {
+        type: DataTypes.UUID
     }
 })
 
