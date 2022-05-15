@@ -50,7 +50,6 @@ export const saveUserService = async (user: User) => {
     try {
         response = await repository.save(userParser)
     } catch (error) {
-        console.error('error del repository')
         throw new RepositoryError('No se ha podido guardar')
     }
 
