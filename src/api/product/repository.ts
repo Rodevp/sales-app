@@ -1,23 +1,7 @@
 import { Products as ProductModel } from './model'
-
-
-interface Product {
-    id: string
-    name: string
-    price: Number
-    idSale: string
-}
-
-class ProductDTO {
-    private name: string
-    private price: Number
-
-    constructor(name: string, price: Number) {
-        this.name = name
-        this.price = price
-    }
-
-}
+import { ProductDTO } from '../../DTO/product'
+import { Product } from './types'
+import { BadRequestsError } from '../../errors/bad-requests'
 
 export class ProductRepository {
     
@@ -29,34 +13,61 @@ export class ProductRepository {
         return productDTO
     }
 
-    async edit(product: Product) {
-        const response: any = await ProductModel.update( { ...product }, {
-            where: { id: product.id }
-        })
-        const productDTO = new ProductDTO(response.name, response.price)
-        return productDTO
+    async edit(id: Number, product: Product) {
+        const response = await ProductModel.findOne( { where: { id } } )
+        
+        if(!response) throw new BadRequestsError('Producto no econtrado')
+
+        response?.set(product)
+        response?.save()
+        
+        return response
     }
 
 
-    async delete(productId: string) {
-        await ProductModel.destroy({
-            where: {
-                id: productId
-            }
-        })
+    async delete(productId: Number) {
+       try {
+            await ProductModel.destroy({
+                where: {
+                    id: productId
+                }
+            })
+       } catch(error) {
+           throw new BadRequestsError('no se ha encontrado el producto')
+       }
         return {}
     }
 
 
     async all(idSeller: string) {
-        const response = await ProductModel.findAll({
+        
+        const response: any = await ProductModel.findAll({
             where: {
                 id_seller: idSeller
             }
         })
 
-        console.log(response)
+        if (!response) return [] 
 
+        const listProducts = response.map( ( product: any ) => {
+            return {
+                id: product.id,
+                nameProduct: product.name,
+                idSeller: product.id_seller,
+                idSales: product.id_sale 
+            }
+        })
+
+        return listProducts
+
+    }
+
+    async getOneById(id: Number) {
+        const response = await ProductModel.findOne( { where: { id } } )
+        
+        if(!response) throw new BadRequestsError('Producto no econtrado')
+        
+        return response
     }
 
 
