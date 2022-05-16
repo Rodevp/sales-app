@@ -4,7 +4,7 @@ import token_config from '../config/auth'
 export const createJWT = (data: any) => {
     return jwt.sign(
         data,
-        'a',
+        `${token_config.JWT_SECRET}`,
         {
           expiresIn: '1h',
         }

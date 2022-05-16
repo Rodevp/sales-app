@@ -61,6 +61,7 @@ export const saveUserService = async (user: User) => {
 export const loginService = async (user: UserLogin) => {
     
     const { email, password } = user
+    console.log(email, password)
     const repository = new RepositoryUser()
   
     if (!email || !password) {

@@ -51,7 +51,6 @@ export const getOneProductService = async (id: Number) => {
 export const saveProductFromCSVfileService = (file: any) => {
 
     let uploadPath = __dirname + '\\uploads\\' + file.products.name
-    console.log(uploadPath)
 
     file.products.mv(uploadPath, (err: any) => {
         if (err) console.error('error')

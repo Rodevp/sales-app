@@ -1,4 +1,11 @@
-export class UnauthenticatedError extends Error {
+class CustomError extends Error {
+  constructor(message: string) {
+    super(message)
+  }
+}
+
+
+export class UnauthenticatedError extends CustomError {
     private statusCode: Number;
 
     constructor(message: string, statusCode: Number = 403) {

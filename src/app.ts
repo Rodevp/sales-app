@@ -1,5 +1,5 @@
 import express from 'express'
-import { Request, Response } from 'express'
+import { Request, Response, NextFunction } from 'express'
 import helmet from 'helmet'
 import cors from 'cors'
 import sequelize from './database'
@@ -14,24 +14,22 @@ import productRouter from './routes/product'
 import salesRouter from './routes/sales'
 import adminRouter from './routes/admin'
 
-
 //models synchronization
 import './api/auth/model'
 import './api/product/model'
 import './api/sales/model'
 
-
 //app
 const PORT = process.env.ENV || 3001
 const app = express()
 
-app.use( cors() )
-app.use( helmet() )
-app.use( express.json() )
-app.use( fileUpload() )
-app.use( morgan('dev') )
+app.use(cors())
+app.use(helmet())
+app.use(express.json())
+app.use(fileUpload())
+app.use(morgan('dev'))
 
-app.get('/', (_req: Request, res: Response) => {
+app.get('/api', (_req: Request, res: Response) => {
     res.send('<h1>Api on fire</>')
 })
 
@@ -42,25 +40,10 @@ app.use('/api/v1/product', authenticationMiddleware, productRouter)
 app.use('/api/v1/sales', authenticationMiddleware, salesRouter)
 app.use('/api/v1/admin', authenticationMiddleware, adminRouter)
 
-
-//error handler
 app.use(errorHandleMiddleware)
 
 
-const start = async () => {
-
-    try {
-
-        await sequelize.sync( { force: false } )
-
-        app.listen(PORT, () => {
-            console.log('server on port', PORT, 'and db run')
-
-        })
-
-    } catch (error) {
-        console.error('error DB', error)
-    }
-}
-
-start()
+app.listen(PORT, async () => {
+    await sequelize.sync({ force: false })
+    console.log('server on port', PORT, 'and db run')
+})
