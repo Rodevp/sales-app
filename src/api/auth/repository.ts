@@ -1,7 +1,6 @@
 import { User } from './types'
 import { UserDTO } from '../../DTO/user'
 import {Users as UserModel} from './model'
-import { RepositoryError } from '../../errors/repository-error'
 
 export class RepositoryUser {
 
@@ -19,7 +18,7 @@ export class RepositoryUser {
         const userDB: any = await UserModel.findOne( { where: { email: email } } )
         
         if (!userDB) {
-            throw new RepositoryError('No se ha encontrado usuario')
+            return null
         }
         
         const userLoginDTO = {

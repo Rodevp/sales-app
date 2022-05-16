@@ -11,7 +11,7 @@ export const saveUserService = async (User: User) => {
 
 }
 
-export const deleteUserService = async (id: Number) => {
+export const deleteUserService = async (id: string) => {
 
     const repository = new UserRepository()
     const response = await repository.delete(id)
@@ -20,7 +20,7 @@ export const deleteUserService = async (id: Number) => {
 
 }
 
-export const editUserService = async ( id: Number,User: User) => {
+export const editUserService = async ( id: string, User: User) => {
 
     const repository = new UserRepository()
     const response = await repository.edit(id, User)
@@ -29,16 +29,16 @@ export const editUserService = async ( id: Number,User: User) => {
 
 }
 
-export const getAllUserService = async (idseller: string) => {
+export const getAllUserService = async () => {
 
     const repository = new UserRepository()
-    const response = await repository.all(idseller)
+    const response = await repository.all()
     
     return response
 
 }
 
-export const getOneUserService = async (id: Number) => {
+export const getOneUserService = async (id: string) => {
     
     const repository = new UserRepository()
     const response = await repository.getOneById(id)
@@ -46,4 +46,5 @@ export const getOneUserService = async (id: Number) => {
     return response
 
 }
+
 

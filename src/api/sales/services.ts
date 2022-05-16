@@ -9,9 +9,9 @@ export const saveSalesService = (sale: Sale) => {
 }
 
 
-export const getAllSalesService = (idseller: string) => {
+export const getAllSalesService = async (idseller: string) => {
     const repository = new SalesRepository()
-    const response = repository.all(idseller)
+    const response = await repository.all(idseller)
     return response
 }
 

@@ -11,7 +11,7 @@ export class UserRepository {
         return response
     }
 
-    async edit(id: Number, user: User) {
+    async edit(id: string, user: User) {
         const response = await UserModel.findOne( { where: { id } } )
         
         if(!response) throw new BadRequestsError('Vendedor no econtrado')
@@ -23,7 +23,7 @@ export class UserRepository {
     }
 
 
-    async delete(userId: Number) {
+    async delete(userId: string) {
        try {
             await UserModel.destroy({
                 where: {
@@ -37,35 +37,43 @@ export class UserRepository {
     }
 
 
-    async all(idUser: string) {
+    async all() {
         
-        const response: any = await UserModel.findAll({
-            where: {
-                id_seller: idUser
-            }
-        })
+        const response: any = await UserModel.findAll()
 
         if (!response) return [] 
 
         const listUsers = response.map( ( user: any ) => {
-            return {
-                id: user.id,
-                nameProduct: user.name,
-                email: user.email,
-                role: user.role
+            
+            if (user.role === 'seller') {
+                return {
+                    id: user.id,
+                    nameProduct: user.name,
+                    email: user.email,
+                    role: user.role
+                }
             }
+
         })
 
         return listUsers
 
     }
 
-    async getOneById(id: Number) {
-        const response = await UserModel.findOne( { where: { id } } )
+    async getOneById(id: string) {
+        const response: any = await UserModel.findOne( { where: { id } } )
         
         if(!response) throw new BadRequestsError('Vendedor no econtrado')
+
+        let userDto = {
+            name: response.name,
+            email: response.email,
+            role: response.role,
+            id: response.id
+        }
         
-        return response
+        return userDto
+
     }
 
 
