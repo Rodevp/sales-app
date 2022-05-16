@@ -5,6 +5,7 @@ import cors from 'cors'
 import sequelize from './database'
 import morgan from 'morgan'
 import { errorHandleMiddleware } from './middlewares/handle-error'
+import { authenticationMiddleware } from './middlewares/auth-middleware'
 
 //routes import
 import authRouter from './routes/auth'
@@ -34,8 +35,8 @@ app.get('/', (_req: Request, res: Response) => {
 
 //routers
 app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/product', productRouter)
-app.use('/api/v1/sales', salesRouter)
+app.use('/api/v1/product', authenticationMiddleware, productRouter)
+app.use('/api/v1/sales', authenticationMiddleware, salesRouter)
 
 
 //error handler
