@@ -1,9 +1,11 @@
 import express from 'express'
 const router = express.Router()
 
-import productController from '../controllers/sales'
+import salesController from '../controllers/sales'
 
-router.post('/', productController.addSales)
+router.post('/', salesController.addSales)
+router.get('/:id', salesController.getSale)
+router.get('/seller/:id', salesController.getAllSales)
 
 
 export default router

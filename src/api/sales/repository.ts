@@ -1,62 +1,46 @@
 import { Sales as SalesModel } from './model'
+import { Sale } from './types'
+import { BadRequestsError } from '../../errors/bad-requests'
 
 
-interface Sale {
-    id: string
-    name: string
-    price: Number
-    idSale: string
-}
-
-class SaleDTO {
-    private name: string
-    private price: Number
-
-    constructor(name: string, price: Number) {
-        this.name = name
-        this.price = price
-    }
-
-}
-
-export class SaleRepository {
+export class SalesRepository {
     
     constructor() {}
 
-    async save(product: Sale) {
-        const response: any = await SalesModel.create( { ...product } )
-        const productDTO = new SaleDTO(response.name, response.price)
-        return productDTO
+    async save(sale: Sale) {
+        const response: any = await SalesModel.create( { ...sale }  )
+        return response
     }
-
-    async edit(product: Sale) {
-        const response: any = await SalesModel.update( { ...product }, {
-            where: { id: product.id }
-        })
-        const productDTO = new SaleDTO(response.name, response.price)
-        return productDTO
-    }
-
-
-    async delete(saleId: string) {
-        await SalesModel.destroy({
-            where: {
-                id: saleId
-            }
-        })
-        return {}
-    }
-
 
     async all(idSeller: string) {
-        const response = await SalesModel.findAll({
+        
+        const response: any = await SalesModel.findAll({
             where: {
                 id_seller: idSeller
             }
         })
 
-        console.log(response)
+        if (!response) return [] 
 
+        const listSales = response.map( (sales: any ) => {
+            return {
+                id: sales.id,
+                nameProduct: sales.name,
+                idSeller: sales.id_seller,
+                valueSale: sales.value_sale 
+            }
+        })
+
+        return listSales
+
+    }
+
+    async getOneById(id: Number) {
+        const response = await SalesModel.findOne( { where: { id } } )
+        
+        if(!response) throw new BadRequestsError('Venta no econtrada')
+        
+        return response
     }
 
 
