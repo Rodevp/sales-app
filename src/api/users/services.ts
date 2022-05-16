@@ -35,12 +35,21 @@ export const deleteUserService = async (id: string) => {
 
 }
 
-export const editUserService = async (id: string, User: User) => {
+export const editUserService = async (id: string, user: User) => {
 
     const repository = new UserRepository()
-    const response = await repository.edit(id, User)
+    const response: any = await repository.edit(id, user)
 
-    return response
+    const userDTO = {
+        id: response.id,
+        email: response.email,
+        name: response.name,
+        role: response.role,
+        updatedAt: response.updatedAt,
+        createdAt: response.createdAt
+    }
+
+    return userDTO
 
 }
 
