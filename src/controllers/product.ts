@@ -4,8 +4,10 @@ import {
     getAllProductService,
     deleteProductService,
     editProductService,
-    getOneProductService
+    getOneProductService,
+    saveProductFromCSVfileService
 } from '../api/product/services'
+
 
 const addProduct = async (req: Request, res: Response) => {
     
@@ -51,10 +53,17 @@ const getProduct = async (req: Request, res: Response) => {
 
 }
 
+const saveProductFromCSV = async (req: Request, res: Response) => {
+    const file: any = req.files
+    saveProductFromCSVfileService(file)
+    return res.send('holi')
+}
+
 export default {
     addProduct,
     getAllProducts,
     deleteProduct,
     editProduct,
-    getProduct
+    getProduct,
+    saveProductFromCSV
 }

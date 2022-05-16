@@ -4,6 +4,7 @@ import helmet from 'helmet'
 import cors from 'cors'
 import sequelize from './database'
 import morgan from 'morgan'
+import fileUpload from 'express-fileupload'
 import { errorHandleMiddleware } from './middlewares/handle-error'
 import { authenticationMiddleware } from './middlewares/auth-middleware'
 
@@ -27,6 +28,7 @@ const app = express()
 app.use( cors() )
 app.use( helmet() )
 app.use( express.json() )
+app.use( fileUpload() )
 app.use( morgan('dev') )
 
 app.get('/', (_req: Request, res: Response) => {
@@ -36,7 +38,7 @@ app.get('/', (_req: Request, res: Response) => {
 
 //routers
 app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/product', authenticationMiddleware, productRouter)
+app.use('/api/v1/product',  productRouter)
 app.use('/api/v1/sales', authenticationMiddleware, salesRouter)
 app.use('/api/v1/admin', authenticationMiddleware, adminRouter)
 

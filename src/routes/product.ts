@@ -8,6 +8,7 @@ router.get('/seller-sales/:id', productController.getAllProducts)
 router.delete('/:id', productController.deleteProduct)
 router.put('/:id', productController.editProduct)
 router.post('/', productController.addProduct)
+router.post('/csv', productController.saveProductFromCSV)
 
 
 export default router
