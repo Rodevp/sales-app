@@ -37,8 +37,8 @@ app.get('/', (_req: Request, res: Response) => {
 //routers
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/product', authenticationMiddleware, productRouter)
-app.use('/api/v1/sales', salesRouter)
-app.use('/api/v1/admin', adminRouter)
+app.use('/api/v1/sales', authenticationMiddleware, salesRouter)
+app.use('/api/v1/admin', authenticationMiddleware, adminRouter)
 
 
 //error handler
