@@ -40,10 +40,7 @@ app.use('/api/v1/sales', authenticationMiddleware, salesRouter)
 
 
 //error handler
-app.use((err: any, req: any, res: any, next: any) => {
-    console.log(err)
-    return res.status(500).send('error')
-})
+app.use(errorHandleMiddleware)
 
 
 const start = async () => {
