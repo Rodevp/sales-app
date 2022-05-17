@@ -8,7 +8,7 @@ import { isTypeUser } from '../../helpers/valid-user-type'
 export const saveUserService = async (user: User) => {
 
     const repository = new UserRepository()
-    
+
     isTypeUser(user)
 
     const userParser = {

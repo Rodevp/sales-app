@@ -11,8 +11,16 @@ import {  SUCCESS_RESPONSES  } from '../helpers/http'
 
 const addUser = async (req: Request, res: Response, next: NextFunction) => {
 
+    const user = {
+        name: req.body.name,
+        id: req.body.id,
+        email: req.body.email,
+        password: req.body.password,
+        role: req.body.role,
+    }
+
     try {
-        const response = await saveUserService(req.body)
+        const response = await saveUserService(user)
 
         return res.status(SUCCESS_RESPONSES.CREATED).json(response)
     } catch (error) {
