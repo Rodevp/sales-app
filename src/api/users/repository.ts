@@ -48,7 +48,7 @@ export class UserRepository {
             if (user.role === 'seller') {
                 return {
                     id: user.id,
-                    nameProduct: user.name,
+                    name: user.name,
                     email: user.email,
                     role: user.role
                 }
