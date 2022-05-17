@@ -7,12 +7,14 @@ import {
     getOneUserService
 } from '../api/users/services'
 
+import {  SUCCESS_RESPONSES  } from '../helpers/http'
+
 const addUser = async (req: Request, res: Response, next: NextFunction) => {
 
     try {
         const response = await saveUserService(req.body)
 
-        return res.status(201).json(response)
+        return res.status(SUCCESS_RESPONSES.CREATED).json(response)
     } catch (error) {
         next(error)
     }
@@ -23,7 +25,7 @@ const getAllUsers = async (_req: Request, res: Response, next: NextFunction) => 
     try {
         const response = await getAllUserService()
 
-        return res.status(200).json(response)
+        return res.status(SUCCESS_RESPONSES.OK).json(response)
     } catch (error) {
         next(error)
     }
@@ -35,7 +37,7 @@ const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
         const idSeller: string = req.params.id
         const response = await deleteUserService(idSeller)
 
-        return res.status(200).json(response)
+        return res.status(SUCCESS_RESPONSES.OK).json(response)
     } catch (error) {
         next(error)
     }
@@ -52,7 +54,7 @@ const editUser = async (req: Request, res: Response, next: NextFunction) => {
 
         const response = await editUserService(id, User)
 
-        return res.status(200).json(response)
+        return res.status(SUCCESS_RESPONSES.OK).json(response)
     } catch (error) {
         next(error)
     }
@@ -66,7 +68,7 @@ const getUser = async (req: Request, res: Response, next: NextFunction) => {
 
         const response = await getOneUserService(id)
 
-        return res.status(200).json(response)
+        return res.status(SUCCESS_RESPONSES.OK).json(response)
     } catch (error) {
         next(error)
     }

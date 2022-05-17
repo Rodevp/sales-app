@@ -5,10 +5,12 @@ import {
     getOneSaleservice
 } from '../api/sales/services'
 
+import {  SUCCESS_RESPONSES } from '../helpers/http'
+
 const addSales = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const response = await saveSalesService(req.body)
-        res.status(201).json(response)
+        res.status(SUCCESS_RESPONSES.CREATED).json(response)
     } catch (error) {
         next(error)
     }
@@ -20,7 +22,7 @@ const getAllSales = async (req: Request, res: Response, next: NextFunction) => {
         const idSeller = req.params.id
         const response = await getAllSalesService(idSeller)
 
-        return res.status(200).json(response)
+        return res.status(SUCCESS_RESPONSES.OK).json(response)
     } catch (error) {
         next(error)
     }
@@ -34,7 +36,7 @@ const getSale = async (req: Request, res: Response, next: NextFunction) => {
 
         const response = await getOneSaleservice(id)
 
-        return res.status(200).json(response)
+        return res.status(SUCCESS_RESPONSES.OK).json(response)
     } catch (error) {
         next(error)
     }

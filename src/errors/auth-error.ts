@@ -1,14 +1,10 @@
-class CustomError extends Error {
-  constructor(message: string) {
-    super(message)
-  }
-}
+import {  AUTHENTICATION_RESPONSES  } from '../helpers/http'
 
 
-export class UnauthenticatedError extends CustomError {
+export class UnauthenticatedError extends Error {
     private statusCode: Number;
 
-    constructor(message: string, statusCode: Number = 403) {
+    constructor(message: string, statusCode: Number = AUTHENTICATION_RESPONSES.NOT_AUTHORIZED) {
         super(message);
         this.statusCode = statusCode
       }
