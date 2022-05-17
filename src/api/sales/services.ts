@@ -25,3 +25,10 @@ export const getOneSaleservice = async (id: Number) => {
 
 }
 
+export const getSalesBySellersService = async (id: string) => {
+
+    const repository = new SalesRepository()
+    const response = await repository.getAllById(id)
+    
+    return response
+}

@@ -40,4 +40,14 @@ export class SalesRepository {
     }
 
 
+   async getAllById(id: string) {
+       
+    const respose = await this.all()
+       const filterSalesBySellers = respose.filter( ( seller: any ) => seller.idSeller == id )
+       
+       return filterSalesBySellers
+
+   }
+
+
 }

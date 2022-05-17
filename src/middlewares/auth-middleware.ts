@@ -5,13 +5,13 @@ import token_config from '../config/auth'
 
 export const authenticationMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     
-    const authHeader = req.headers.authorization ?? null
+    const authHeader = req.headers.authorization
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        throw new UnauthenticatedError('Token no proveido')
+        next(new UnauthenticatedError('token no proveido'))
     }
 
-    const token = authHeader.split(' ')[1]
+    const token = authHeader === undefined ? '' : authHeader.split(' ')[1]
     const shhh = token_config.JWT_SECRET
 
     try {
