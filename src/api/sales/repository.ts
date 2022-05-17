@@ -12,20 +12,16 @@ export class SalesRepository {
         return response
     }
 
-    async all(idSeller: string) {
+    async all() {
         
-        const response: any = await SalesModel.findAll({
-            where: {
-                id_seller: idSeller
-            }
-        })
+        const response: any = await SalesModel.findAll()
 
         if (!response) return [] 
 
         const listSales = response.map( (sales: any ) => {
             return {
                 id: sales.id,
-                nameProduct: sales.name,
+                name: sales.name,
                 idSeller: sales.id_seller,
                 valueSale: sales.value_sale 
             }

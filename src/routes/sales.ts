@@ -3,9 +3,9 @@ const router = express.Router()
 
 import salesController from '../controllers/sales'
 
-router.post('/', salesController.addSales)
+router.get('/', salesController.getAllSales)
 router.get('/:id', salesController.getSale)
-router.get('/seller/:id', salesController.getAllSales)
+router.post('/', salesController.addSales)
 
 
 export default router

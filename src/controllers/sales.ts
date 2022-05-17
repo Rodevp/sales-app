@@ -19,8 +19,7 @@ const addSales = async (req: Request, res: Response, next: NextFunction) => {
 const getAllSales = async (req: Request, res: Response, next: NextFunction) => {
 
     try {
-        const idSeller = req.params.id
-        const response = await getAllSalesService(idSeller)
+        const response = await getAllSalesService()
 
         return res.status(SUCCESS_RESPONSES.OK).json(response)
     } catch (error) {
