@@ -1,5 +1,5 @@
-import { User } from "./types";
-import { DataIsNotValidError } from '../../errors/data-error'
+import { DataIsNotValidError } from '../errors/data-error'
+import { User } from '../api/users/types'
 
 export const isTypeUser = (data: User) => {
     

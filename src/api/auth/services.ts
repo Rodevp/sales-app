@@ -2,7 +2,7 @@ import { User, UserLogin } from './types'
 import { RepositoryUser } from './repository'
 import { test as validateUUID } from 'uuid-random'
 import { generateHash, comparePassword } from '../../helpers/encrypt'
-import { isTypeUser } from './utils'
+import { isTypeUser } from '../../helpers/valid-user-type'
 import { createJWT } from '../../helpers/token'
 
 //errors
