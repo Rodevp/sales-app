@@ -8,7 +8,7 @@ import {
     saveProductFromCSVfileService
 } from '../api/product/services'
 
-import {  FAILED_RESPONSES, SUCCESS_RESPONSES  } from '../helpers/http'
+import {  SUCCESS_RESPONSES  } from '../helpers/http'
 
 
 const addProduct = async (req: Request, res: Response, next: NextFunction) => {
